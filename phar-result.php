@@ -59,8 +59,8 @@
                 $message = "The file you are trying to upload is not a .zip file. Please try again.";
             }
                 $ran = uniqid();
-                $targetdir = "tmp/".$ran;
-                $targetzip = "tmp/".$ran.".zip";
+                $targetdir = "tmp/".$filename.$ran;
+                $targetzip = "tmp/".$filename.$ran.".zip";
 
             if(move_uploaded_file($tmp_name, $targetzip)) { //Uploading the Zip File
 
@@ -72,7 +72,6 @@
                     $zip->extractTo($targetdir); // place in the directory with same name
                     $zip->close();
 
-                    unlink($targetzip); //Deleting the Zipped file
                 }
                 $message = "";
 
