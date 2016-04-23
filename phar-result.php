@@ -59,6 +59,7 @@
                 $message = "The file you are trying to upload is not a .zip file. Please try again.";
             }
                 $ran = uniqid();
+                $pharname = $filename.$ran;
                 $targetdir = "tmp/".$filename.$ran;
                 $targetzip = "tmp/".$filename.$ran.".zip";
 
@@ -71,7 +72,9 @@
                 if ($x === true) {
                     $zip->extractTo($targetdir); // place in the directory with same name
                     $zip->close();
-
+                    $phar = new Phar("tmp/".$pharname.".phar");
+                    $phar->buildFromDirectory(dirname(__FILE__) . $targetdir);
+                    $phar->setStub(<?php __HALT_COMPILER(););
                 }
                 $message = "";
 
