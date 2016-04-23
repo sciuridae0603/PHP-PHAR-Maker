@@ -23,6 +23,7 @@
           <ul class="nav navbar-nav">
             <li><a href="index.php">Home</a></li>
             <li class="active"><a href="phar.php">Create Phar</a></li>
+            <li><a href="core.php">Create Phar(Core)</a></li>
             <li><a href="unphar.php">Extract Phar</a></li>
           </ul>
         </div>

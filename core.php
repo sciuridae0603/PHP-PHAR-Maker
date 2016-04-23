@@ -23,8 +23,8 @@
           <ul class="nav navbar-nav">
             <li><a href="index.php">Home</a></li>
             <li><a href="phar.php">Create Phar</a></li>
-            <li><a href="core.php">Create Phar(Core)</a></li>
-            <li class="active"><a href="unphar.php">Extract Phar</a></li>
+            <li class="active"><a href="core.php">Create Phar(Core)</a></li>
+            <li><a href="unphar.php">Extract Phar</a></li>
           </ul>
         </div>
       </div>
@@ -38,9 +38,11 @@
         <br>
         <br>
       <div class="yee">
-        <form action="extract.php" method="post" enctype="multipart/form-data">
-            Select Zip File to upload:
+        <form action="core-result.php" method="post" enctype="multipart/form-data">
+            <p>Select Zip File to upload:</p>
+            <br>
             <input type="file" name="fileToUpload" id="fileToUpload">
+            <br>
             <input type="submit" class="btn btn-info" value="Upload" name="submit">
         </form>
       </div>
