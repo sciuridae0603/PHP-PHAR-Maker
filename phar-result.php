@@ -76,7 +76,7 @@
                     $phar->buildFromDirectory(dirname(__FILE__) . $targetdir);
                     $phar->setStub(<?php __HALT_COMPILER(););
                 }
-                $message = "";
+                $message = "Your phar file is already created,and your download link here".<a href=$targetdir.".phar">Link</a>;
 
             } else {
                 $message = "There was a problem with the upload. Please try again.";
