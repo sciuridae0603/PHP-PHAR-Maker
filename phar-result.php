@@ -58,20 +58,28 @@ if($_FILES["zip_file"]["name"]) {
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
             <li><a href="index.php">Home</a></li>
-            <li class="active"><a href="phar.php">Create Phar</a></li>
-            <li><a href="unphar.php">Extract Phar</a></li>
+            <li><a href="phar.php">Create Phar</a></li>
+            <li class="active"><a href="unphar.php">Extract Phar</a></li>
           </ul>
         </div>
       </div>
     </nav>
 
     <div class="container">
-
+      <center>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
       <div class="yee">
-        <h1>PMT</h1>
-        <a href="https://github.com/sciuridae0603/Phar-Maker">Sources Code</a>
+        <form action="extract.php" method="post" enctype="multipart/form-data">
+            Select Zip File to upload:
+            <input type="file" name="fileToUpload" id="fileToUpload">
+            <input type="submit" class="btn btn-info" value="Upload" name="submit">
+        </form>
       </div>
-
+    </center>
     </div>
 
 

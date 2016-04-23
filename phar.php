@@ -66,7 +66,12 @@ if($_FILES["zip_file"]["name"]) {
     </nav>
 
     <div class="container">
-
+      <center>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
       <div class="yee">
         <form action="extract.php" method="post" enctype="multipart/form-data">
             Select Zip File to upload:
@@ -74,7 +79,7 @@ if($_FILES["zip_file"]["name"]) {
             <input type="submit" class="btn btn-info" value="Upload" name="submit">
         </form>
       </div>
-
+    </center>
     </div>
 
 
