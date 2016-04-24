@@ -43,8 +43,8 @@
         if($_FILES['file']['error']>0){
           exit("Upload Fail");
         }
-        move_uploaded_file($_FILES['file']['tmp_name'],'tmp/'.$_FILES['file']['name']);//複製檔案
-        echo '<a href="tmp/'.$ran.$_FILES['file']['name'].'">tmp/'.$ran.$_FILES['file']['name'].'</a>';//顯示檔案路徑
+        move_uploaded_file($_FILES['file']['tmp_name'],'tmp/'.$ran."_".$_FILES['file']['name']);//複製檔案
+        echo '<a href="tmp/'.$ran."_".$_FILES['file']['name'].'">tmp/'.$ran."_".$_FILES['file']['name'].'</a>';//顯示檔案路徑
         ?>
         </form>
       </div>
