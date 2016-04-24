@@ -29,7 +29,7 @@ if($_FILES["zip_file"]["name"]) {
       $phar->buildFromDirectory(dirname(__FILE__) . "tmp/".$target_path/);
       $phar->setStub(<?php __HALT_COMPILER(););
 		}
-		$message = "Your .zip file was uploaded and pack to phar.Download link here".<a href="tmp/".$target_path.".phar">Phar</a>;
+		$message = "Your .zip file was uploaded and pack to phar.Download link here";
 	} else {
 		$message = "There was a problem with the upload. Please try again.";
 	}
