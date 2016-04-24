@@ -39,11 +39,21 @@
         <br>
       <div class="yee">
         <?php
+        include('pclzip.lib.php');
+        $ran = uniqid();
+        $tmpname = $_FILES['file']['tmp_name'];
+        $filename = $ran."_".$_FILES['file']['name'];
         if($_FILES['file']['error']>0){
-          exit("Upload fail");//如果出現錯誤則停止程式
+          exit("Upload fail");
         }
-        move_uploaded_file($_FILES['file']['tmp_name'],'tmp/'.$_FILES['file']['name']);
-        echo '<a href="file/'.$_FILES['file']['name'].'">tmp/'.$_FILES['file']['name'].'</a>';
+        move_uploaded_file($tmpname,'tmp/'.$filename);
+        $filepath = "tmp/".$filename;
+        $zip = new PclZip($filepath);
+        $unzippath = "tmp/".$filename."/";
+        mkdir($unzippath, 0777);
+        $zip->extract(PCLZIP_OPT_PATH, $unzippath);
+        
+
         ?>
         </form>
       </div>
