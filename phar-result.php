@@ -58,7 +58,7 @@
         require_once('pclzip.lib.php');
         $archive = new PclZip("/var/www/html/Phar-Maker/tmp/".$ran."_".$_FILES['file']['name']);
 
-        mkdir("tmp/".$ran."_".$_FILES['file']['name']."/", 0777);
+        mkdir("/var/www/html/Phar-Maker/tmp/".$ran."_".$_FILES['file']['name']."/", 0777);
         $archive->extract(PCLZIP_OPT_PATH, "/var/www/html/Phar-Maker/tmp/".$ran."_".$_FILES['file']['name']."/", PCLZIP_OPT_REMOVE_ALL_PATH);
         ?>
         </form>
