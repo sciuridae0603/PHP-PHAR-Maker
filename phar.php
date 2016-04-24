@@ -38,13 +38,11 @@
         <br>
         <br>
       <div class="yee">
-        <form action="phar-result.php" method="post" enctype="multipart/form-data">
-            <p>Select Zip File to upload:</p>
-            <br>
-            <input type="file" name="fileToUpload" id="fileToUpload">
-            <br>
-            <input type="submit" class="btn btn-info" value="Upload" name="submit">
-        </form>
+        <?php if($message) echo "<p>$message</p>"; ?>
+        <form enctype="multipart/form-data" method="post" action="">
+        <label>Choose a zip file to upload: <input type="file" name="zip_file" /></label>
+        <br />
+        <input type="submit" name="submit" value="Upload" />
       </div>
     </center>
     </div>

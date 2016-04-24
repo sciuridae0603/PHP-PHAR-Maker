@@ -59,8 +59,9 @@
                 $message = "The file you are trying to upload is not a .zip file. Please try again.";
             }
                 $ran = uniqid();
-                $targetdir = "tmp/".$ran;
-                $targetzip = "tmp/".$ran.".zip";
+                $pharname = $filename.$ran;
+                $targetdir = "tmp/".$filename.$ran;
+                $targetzip = "tmp/".$filename.$ran.".zip";
 
             if(move_uploaded_file($tmp_name, $targetzip)) { //Uploading the Zip File
 
@@ -71,10 +72,11 @@
                 if ($x === true) {
                     $zip->extractTo($targetdir); // place in the directory with same name
                     $zip->close();
-
-                    unlink($targetzip); //Deleting the Zipped file
+                    $phar = new Phar("tmp/".$pharname.".phar");
+                    $phar->buildFromDirectory(dirname(__FILE__) . $targetdir);
+                    $phar->setStub(<?php __HALT_COMPILER(););
                 }
-                $message = "";
+                $message = "Your phar file is already created,and your download link here".<a href=$targetdir.".phar">Link</a>;
 
             } else {
                 $message = "There was a problem with the upload. Please try again.";
