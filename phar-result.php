@@ -40,18 +40,14 @@
       <div class="yee">
         <?php
         include('pclzip.lib.php');
-        $ran= uniqid();
+        ran= uniqid();
         if($_FILES['file']['error']>0){
           exit("Upload fail");
         }
         move_uploaded_file($_FILES['file']['tmp_name'],'tmp/'.$ran.$_FILES['file']['name']);
-        echo "<a href="'tmp/'.$ran.$_FILES['file']['name']" class="btn btn-info" role="button">Your Zip File</a>";
-        require_once('pclzip.lib.php');
-        $archive = new PclZip('tmp/'.$ran.$_FILES['file']['name']);
-        $archive->extract('tmp/'.$ran.$_FILES['file']['name'].'/');
-
+        echo <a href="'tmp/'.$ran.$_FILES['file']['name'].'" class="btn btn-info" role="button">Your Zip File</a>;
         ?>
-
+        </form>
       </div>
     </center>
     </div>
