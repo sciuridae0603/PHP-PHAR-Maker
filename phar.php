@@ -1,3 +1,41 @@
+<?php
+if($_FILES["zip_file"]["name"]) {
+	$filename = $_FILES["zip_file"]["name"];
+	$source = $_FILES["zip_file"]["tmp_name"];
+	$type = $_FILES["zip_file"]["type"];
+
+	$name = explode(".", $filename);
+	$accepted_types = array('application/zip', 'application/x-zip-compressed', 'multipart/x-zip', 'application/x-compressed');
+	foreach($accepted_types as $mime_type) {
+		if($mime_type == $type) {
+			$okay = true;
+			break;
+		}
+	}
+
+	$continue = strtolower($name[1]) == 'zip' ? true : false;
+	if(!$continue) {
+		$message = "The file you are trying to upload is not a .zip file. Please try again.";
+	}
+  $random = uniqid();
+	$target_path = "tmp/".$ran.$filename;
+	if(move_uploaded_file($source, $target_path)) {
+		$zip = new ZipArchive();
+		$x = $zip->open($target_path);
+		if ($x === true) {
+			$zip->extractTo("tmp/".$ran.$filename/);
+			$zip->close();
+      $phar = new Phar("/tmp".$target_path".phar", 0, "tmp/".$target_path.".phar");
+      $phar->buildFromDirectory(dirname(__FILE__) . "tmp/".$target_path/);
+      $phar->setStub(<?php __HALT_COMPILER(););
+		}
+		$message = "Your .zip file was uploaded and pack to phar.Download link here".<a href="tmp/".$target_path.".phar">Phar</a>;
+	} else {
+		$message = "There was a problem with the upload. Please try again.";
+	}
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
