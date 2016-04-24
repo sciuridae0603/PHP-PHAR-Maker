@@ -39,7 +39,17 @@
         <br>
       <div class="yee">
         <?php
-        $ran = uniqid();
+        function make_random($length =5) {
+          if(is_numeric($length) && $length >0){
+            $chr = array_merge(range('A', 'Z'), range('a', 'z'),range(0, 9));
+            $out ='';
+            for($i=0;$i < $length;$i++) {
+              $out .= $chr[mt_rand(0,count($chr)-1)];
+            }
+            return $out;
+          }
+        }
+        $ran = make_random();
         if($_FILES['file']['error']>0){
           exit("Upload Fail");
         }
