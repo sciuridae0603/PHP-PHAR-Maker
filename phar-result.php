@@ -49,7 +49,7 @@
         move_uploaded_file($tmpname,'tmp/'.$filename);
         $filepath = "tmp/".$filename;
         $zip = new PclZip($filepath);
-        $unzippath = "tmp/".$filename."/";
+        $unzippath = "tmp/"."tmp_".$filename."/";
         mkdir($unzippath, 0777);
         $zip->extract(PCLZIP_OPT_PATH, $unzippath);
 
