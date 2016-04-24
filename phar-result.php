@@ -39,50 +39,11 @@
         <br>
       <div class="yee">
         <?php
-
-        if($_FILES["fileToUpload"]["name"]) {
-            $file = $_FILES["fileToUpload"];
-            $filename = $file["name"];
-            $tmp_name = $file["tmp_name"];
-            $type = $file["type"];
-
-            $name = explode(".", $filename);
-            $accepted_types = array('application/zip', 'application/x-zip-compressed', 'multipart/x-zip', 'application/x-compressed');
-
-            if(in_array($type,$accepted_types)) {
-                $okay = true;
-            }
-
-            $continue = strtolower($name[1]) == 'zip' ? true : false;
-
-            if(!$continue) {
-                $message = "The file you are trying to upload is not a .zip file. Please try again.";
-            }
-                $ran = uniqid();
-                $pharname = $filename.$ran;
-                $targetdir = "tmp/".$filename.$ran;
-                $targetzip = "tmp/".$filename.$ran.".zip";
-
-            if(move_uploaded_file($tmp_name, $targetzip)) { //Uploading the Zip File
-
-                /* Extracting Zip File */
-
-                $zip = new ZipArchive();
-                $x = $zip->open($targetzip);  // open the zip file to extract
-                if ($x === true) {
-                    $zip->extractTo($targetdir); // place in the directory with same name
-                    $zip->close();
-                    $phar = new Phar("tmp/".$pharname.".phar");
-                    $phar->buildFromDirectory(dirname(__FILE__) . $targetdir);
-                    $phar->setStub(<?php __HALT_COMPILER(););
-                }
-                $message = "Your phar file is already created,and your download link here".<a href=$targetdir.".phar">Link</a>;
-
-            } else {
-                $message = "There was a problem with the upload. Please try again.";
-            }
+        if($_FILES['file']['error']>0){
+          exit("Upload fail");//如果出現錯誤則停止程式
         }
-
+        move_uploaded_file($_FILES['file']['tmp_name'],'tmp/'.$_FILES['file']['name']);
+        echo '<a href="file/'.$_FILES['file']['name'].'">tmp/'.$_FILES['file']['name'].'</a>';
         ?>
         </form>
       </div>
