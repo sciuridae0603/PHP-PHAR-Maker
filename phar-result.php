@@ -56,10 +56,10 @@
         move_uploaded_file($_FILES['file']['tmp_name'],'tmp/'.$ran."_".$_FILES['file']['name']);//複製檔案
         echo '<a href="tmp/'.$ran."_".$_FILES['file']['name'].'" class="btn btn-info" role="button">tmp/'.$ran."_".$_FILES['file']['name'].'</a>';
         require_once('pclzip.lib.php');
-        $archive = new PclZip("/var/www/html/Phar-Maker/tmp/".$ran."_".$_FILES['file']['name']);
+        $archive = new PclZip("tmp/".$ran."_".$_FILES['file']['name']);
 
-        mkdir("/var/www/html/Phar-Maker/tmp/".$ran."_".$_FILES['file']['name']."/", 0777);
-        $archive->extract(PCLZIP_OPT_PATH, "/var/www/html/Phar-Maker/tmp/".$ran."_".$_FILES['file']['name']."/", PCLZIP_OPT_REMOVE_ALL_PATH);
+        mkdir("tmp/".$ran."_".$_FILES['file']['name']."/", 0777);
+        $archive->extract(PCLZIP_OPT_PATH, "tmp/".$ran."_".$_FILES['file']['name']."/", PCLZIP_OPT_REMOVE_ALL_PATH);
         ?>
         </form>
       </div>
