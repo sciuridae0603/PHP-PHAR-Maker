@@ -68,13 +68,14 @@
         } else {
           echo 'zip extract failed';
         }
+        $link = "'tmp/$ran'.'_'.$_FILES['file'].'.phar'"
         $phar = new Phar("tmp/".$ran."_".$_FILES['file'].".phar");
         $phar->setStub("<?php __HALT_COMPILER();");
         $phar->setSignatureAlgorithm(Phar::SHA1);
         $phar->startBuffering();
         $phar->buildFromDirectory($dir);
         $phar->stopBuffering();
-        echo '<a href="'tmp/'.$ran."_".$_FILES['file'].'.phar' class="btn btn-info" role="button">Your Phar file</a>';
+        echo '<a href=' class="btn btn-info" role="button">Your Phar file</a>';
         ?>
         </form>
       </div>
