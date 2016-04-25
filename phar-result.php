@@ -66,21 +66,21 @@
         if (is_int($zip1)) {
           echo "Error $zip1 encountered reading the file, is it a valid zip?<br>";
         } else {
-        }
-        if ($zip->open('tmp/'.$ran."_".$_FILES['file']['name']) === TRUE) {
-          $zip->extractTo('tmp/zip/');
-          $zip->close();
-        } else {
-          echo 'zip extract failed';
-        }
-        $link = 'tmp/'.$file.'.phar';
-        $phar = new Phar("tmp/".$file.".phar");
-        $phar->setStub("<?php __HALT_COMPILER();");
-        $phar->setSignatureAlgorithm(Phar::SHA1);
-        $phar->startBuffering();
-        $phar->buildFromDirectory($dir);
-        $phar->stopBuffering();
-        echo '<br><br><br><a href='.$link.' class="btn btn-info" role="button">Your Phar file</a>';
+          if ($zip->open('tmp/'.$ran."_".$_FILES['file']['name']) === TRUE) {
+            $zip->extractTo('tmp/zip/');
+            $zip->close();
+          } else {
+            echo 'zip extract failed';
+          }
+          $link = 'tmp/'.$file.'.phar';
+          $phar = new Phar("tmp/".$file.".phar");
+          $phar->setStub("<?php __HALT_COMPILER();");
+          $phar->setSignatureAlgorithm(Phar::SHA1);
+          $phar->startBuffering();
+          $phar->buildFromDirectory($dir);
+          $phar->stopBuffering();
+          echo '<br><br><br><a href='.$link.' class="btn btn-info" role="button">Your Phar file</a>';
+        }    
         ?>
         </form>
       </div>
