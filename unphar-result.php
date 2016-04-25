@@ -63,7 +63,7 @@
         $phar->extractTo('tmp/phar');
         $rootPath = realpath('tmp/phar/');
         $zip = new ZipArchive();
-        $zip->open('tmp/'.$ran."_".$_FILES['file'].'.zip', ZipArchive::CREATE | ZipArchive::OVERWRITE);
+        $zip->open('tmp/'.$ran."_".$_FILES['file']['name'].'.zip', ZipArchive::CREATE | ZipArchive::OVERWRITE);
         $files = new RecursiveIteratorIterator(
           new RecursiveDirectoryIterator($rootPath),
           RecursiveIteratorIterator::LEAVES_ONLY

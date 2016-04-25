@@ -59,7 +59,7 @@
           if(is_file($file))
           unlink($file);
         }
-        $file = $ran."_".$_FILES['file'];
+        $file = $ran."_".$_FILES['file']['name'];
         $zip = new ZipArchive;
         $zip1 = zip_open('tmp/'.$ran."_".$_FILES['file']['name']);
         $dir = "tmp/zip";
