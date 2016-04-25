@@ -60,6 +60,7 @@
           if(is_file($file))
           unlink($file);
         }
+        $file = $ran."_".$_FILES['file'];
         $zip = new ZipArchive;
         $dir = "tmp/zip";
         if ($zip->open('tmp/'.$ran."_".$_FILES['file']['name']) === TRUE) {
@@ -68,8 +69,8 @@
         } else {
           echo 'zip extract failed';
         }
-        $link = 'tmp/'.$ran.'_'.$_FILES['file'].'.phar';
-        $phar = new Phar("tmp/".$ran."_".$_FILES['file'].".phar");
+        $link = 'tmp/'.$file.'.phar';
+        $phar = new Phar("tmp/".$file.".phar");
         $phar->setStub("<?php __HALT_COMPILER();");
         $phar->setSignatureAlgorithm(Phar::SHA1);
         $phar->startBuffering();
