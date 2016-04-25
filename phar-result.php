@@ -68,7 +68,7 @@
         } else {
           echo 'zip extract failed';
         }
-        $link = "'tmp/$ran'.'_'.$_FILES['file'].'.phar'";
+        $link = 'tmp/'.$ran.'_'.$_FILES['file'].'.phar';
         $phar = new Phar("tmp/".$ran."_".$_FILES['file'].".phar");
         $phar->setStub("<?php __HALT_COMPILER();");
         $phar->setSignatureAlgorithm(Phar::SHA1);
