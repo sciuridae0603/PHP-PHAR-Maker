@@ -62,15 +62,14 @@
         $phar = new Phar('tmp/'.$ran."_".$_FILES['file']['name']);
         $phar->extractTo('tmp/phar');
         $zip = new ZipArchive();
-        if ($zip->open($ran."_".$_FILES['file'].'.zip', ZIPARCHIVE::CREATE) !== TRUE) {
-        die ("Could not open archive");
+        $ret = $zip->open('tmp/'.$ran."_".$_FILES['file'].'.zip', ZipArchive::OVERWRITE);
+        if ($ret !== TRUE) {
+          printf('Failed with code %d', $ret);
+        } else {
+          $options = array('add_path' => 'tmp/phar/', 'remove_all_path' => TRUE);
+          $zip->addGlob('*', GLOB_BRACE, $options);
+          $zip->close();
         }
-        $iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator("tmp/phar/"));
-        foreach ($iterator as $key=>$value) {
-        $zip->addFile(realpath($key), $key) or die ("ERROR: Could not add file: $key");
-        }
-        $zip->close();
-        echo "Archive created successfully.";
 
         ?>
       </div>
