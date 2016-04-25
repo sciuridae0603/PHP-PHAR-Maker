@@ -22,8 +22,8 @@
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
             <li><a href="index.php">Home</a></li>
-            <li><a href="phar.php">Create Phar</a></li>
-            <li class="active"><a href="core.php">Create Phar(Core)</a></li>
+            <li class="active"><a href="phar.php">Create Phar</a></li>
+            <li><a href="core.php">Create Phar(Core)</a></li>
             <li><a href="unphar.php">Extract Phar</a></li>
           </ul>
         </div>
@@ -39,48 +39,48 @@
         <br>
       <div class="yee">
         <?php
-
-        if($_FILES["fileToUpload"]["name"]) {
-            $file = $_FILES["fileToUpload"];
-            $filename = $file["name"];
-            $tmp_name = $file["tmp_name"];
-            $type = $file["type"];
-
-            $name = explode(".", $filename);
-            $accepted_types = array('application/zip', 'application/x-zip-compressed', 'multipart/x-zip', 'application/x-compressed');
-
-            if(in_array($type,$accepted_types)) {
-                $okay = true;
+        function make_random($length =5) {
+          if(is_numeric($length) && $length >0){
+            $chr = array_merge(range('A', 'Z'), range('a', 'z'),range(0, 9));
+            $out ='';
+            for($i=0;$i < $length;$i++) {
+              $out .= $chr[mt_rand(0,count($chr)-1)];
             }
-
-            $continue = strtolower($name[1]) == 'zip' ? true : false;
-
-            if(!$continue) {
-                $message = "The file you are trying to upload is not a .zip file. Please try again.";
-            }
-                $ran = uniqid();
-                $targetdir = "tmp/".$ran;
-                $targetzip = "tmp/".$ran.".zip";
-
-            if(move_uploaded_file($tmp_name, $targetzip)) { //Uploading the Zip File
-
-                /* Extracting Zip File */
-
-                $zip = new ZipArchive();
-                $x = $zip->open($targetzip);  // open the zip file to extract
-                if ($x === true) {
-                    $zip->extractTo($targetdir); // place in the directory with same name
-                    $zip->close();
-
-                    unlink($targetzip); //Deleting the Zipped file
-                }
-                $message = "";
-
-            } else {
-                $message = "There was a problem with the upload. Please try again.";
-            }
+            return $out;
+          }
         }
-
+        $ran = make_random();
+        if($_FILES['file']['error']>0){
+          exit("Upload Fail");
+        }
+        move_uploaded_file($_FILES['file']['tmp_name'],'tmp/'.$ran."_".$_FILES['file']['name']);
+        $files = glob('tmp/zip/{,.}*', GLOB_BRACE);
+        foreach($files as $file){
+          if(is_file($file))
+          unlink($file);
+        }
+        $file = $ran."_".$_FILES['file'];
+        $zip = new ZipArchive;
+        $zip1 = zip_open('tmp/'.$ran."_".$_FILES['file']['name']);
+        $dir = "tmp/zip";
+        if (is_int($zip1)) {
+          echo "Error $zip1 encountered reading the file, is it a valid zip?<br>";
+        } else {
+          if ($zip->open('tmp/'.$ran."_".$_FILES['file']['name']) === TRUE) {
+            $zip->extractTo('tmp/zip/');
+            $zip->close();
+          } else {
+            echo 'zip extract failed';
+          }
+          $link = 'tmp/'.$file.'.phar';
+          $phar = new Phar("tmp/".$file.".phar");
+          $phar->setStub("<?php define("pocketmine\\PATH", "phar://". __FILE__ ."/"); require_once("phar://". __FILE__ ."/src/pocketmine/PocketMine.php");  __HALT_COMPILER();");
+          $phar->setSignatureAlgorithm(Phar::SHA1);
+          $phar->startBuffering();
+          $phar->buildFromDirectory($dir);
+          $phar->stopBuffering();
+          echo '<br><br><br><a href='.$link.' class="btn btn-info" role="button">Your Phar file</a>';
+        }
         ?>
         </form>
       </div>

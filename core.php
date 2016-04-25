@@ -38,12 +38,12 @@
         <br>
         <br>
       <div class="yee">
-        <form action="core-result.php" method="post" enctype="multipart/form-data">
-            <p>Select Zip File to upload:</p>
-            <br>
-            <input type="file" name="fileToUpload" id="fileToUpload">
-            <br>
-            <input type="submit" class="btn btn-info" value="Upload" name="submit">
+        <form action="core-result.php" enctype="multipart/form-data" method="post">
+        <p>Select Your zip file:</p>
+        <br>
+        <input id="file" name="file" type="file">
+        <br>
+        <input id="submit" name="submit" type="submit" value="Upload">
         </form>
       </div>
     </center>

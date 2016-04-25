@@ -80,7 +80,7 @@
           $phar->buildFromDirectory($dir);
           $phar->stopBuffering();
           echo '<br><br><br><a href='.$link.' class="btn btn-info" role="button">Your Phar file</a>';
-        }    
+        }
         ?>
         </form>
       </div>
