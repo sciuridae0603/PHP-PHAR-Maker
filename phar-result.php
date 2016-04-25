@@ -54,7 +54,6 @@
           exit("Upload Fail");
         }
         move_uploaded_file($_FILES['file']['tmp_name'],'tmp/'.$ran."_".$_FILES['file']['name']);
-        echo '<a href="tmp/'.$ran."_".$_FILES['file']['name'].'" class="btn btn-info" role="button">tmp/'.$ran."_".$_FILES['file']['name'].'</a>';
         $files = glob('tmp/zip/{,.}*', GLOB_BRACE);
         foreach($files as $file){
           if(is_file($file))
@@ -65,7 +64,7 @@
         $zip1 = zip_open('tmp/'.$ran."_".$_FILES['file']['name']);
         $dir = "tmp/zip";
         if (is_int($zip1)) {
-          echo "Error $zip1 encountered reading the file, is it a valid zip?";
+          echo "Error $zip1 encountered reading the file, is it a valid zip?<br>";
         } else {
         }
         if ($zip->open('tmp/'.$ran."_".$_FILES['file']['name']) === TRUE) {
