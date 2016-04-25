@@ -56,8 +56,9 @@
         move_uploaded_file($_FILES['file']['tmp_name'],'tmp/'.$ran."_".$_FILES['file']['name']);
         $files = glob('tmp/phar/{,.}*', GLOB_BRACE);
         foreach($files as $file){
-            unlink($file);
-          }
+          if(is_file($file))
+            unlink($file); 
+        }
         $phar = new Phar('tmp/'.$ran."_".$_FILES['file']['name']);
         $phar->extractTo('tmp/phar');
         ?>
