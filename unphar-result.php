@@ -56,17 +56,10 @@
         move_uploaded_file($_FILES['file']['tmp_name'],'tmp/'.$ran."_".$_FILES['file']['name']);
         $files = glob('tmp/phar/{,.}*', GLOB_BRACE);
         foreach($files as $file){
-          if(is_file($file))
-          unlink($file);
-            }
+            unlink($file);
           }
-        $phar1 = new Phar('tmp/'.$ran."_".$_FILES['file']['name']);
-        if (is_int($phar1)) {
-          echo "Error $phar1 encountered reading the file, is it a valid phar?<br>";
-        } else {
-          $phar = new Phar('tmp/'.$ran."_".$_FILES['file']['name']);
-          $phar->extractTo('tmp/phar');
-        }
+        $phar = new Phar('tmp/'.$ran."_".$_FILES['file']['name']);
+        $phar->extractTo('tmp/phar');
         ?>
       </div>
     </center>
