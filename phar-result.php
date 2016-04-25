@@ -62,7 +62,12 @@
         }
         $file = $ran."_".$_FILES['file'];
         $zip = new ZipArchive;
+        $zip1 = zip_open('tmp/'.$ran."_".$_FILES['file']['name']);
         $dir = "tmp/zip";
+        if (is_int($zip1)) {
+          echo "Error $zip1 encountered reading the file, is it a valid zip?";
+        } else {
+        }
         if ($zip->open('tmp/'.$ran."_".$_FILES['file']['name']) === TRUE) {
           $zip->extractTo('tmp/zip/');
           $zip->close();
