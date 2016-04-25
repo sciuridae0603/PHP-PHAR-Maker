@@ -67,6 +67,9 @@
         } else {
           echo 'zip extract failed';
         }
+        $phar = new Phar('tmp/'.$ran."_".$_FILES['file'].".phar", 0, 'tmp/'.$ran."_".$_FILES['file'].".phar");
+        $phar->buildFromDirectory(dirname(__FILE__) . 'tmp/zip'););
+        $phar->setStub(<?php __HALT_COMPILER(););
         ?>
         </form>
       </div>
