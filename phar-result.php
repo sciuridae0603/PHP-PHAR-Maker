@@ -74,6 +74,7 @@
         $phar->startBuffering();
         $phar->buildFromDirectory($dir);
         $phar->stopBuffering();
+        echo '<a href="'tmp/'.$ran."_".$_FILES['file'].'.phar' class="btn btn-info" role="button">Your Phar file</a>';
         ?>
         </form>
       </div>
