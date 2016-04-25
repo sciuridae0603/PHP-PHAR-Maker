@@ -38,11 +38,30 @@
         <br>
         <br>
       <div class="yee">
-        <form action="extract.php" method="post" enctype="multipart/form-data">
-            Select Zip File to upload:
-            <input type="file" name="fileToUpload" id="fileToUpload">
-            <input type="submit" class="btn btn-info" value="Upload" name="submit">
-        </form>
+        <?php
+        function make_random($length =5) {
+          if(is_numeric($length) && $length >0){
+            $chr = array_merge(range('A', 'Z'), range('a', 'z'),range(0, 9));
+            $out ='';
+            for($i=0;$i < $length;$i++) {
+              $out .= $chr[mt_rand(0,count($chr)-1)];
+            }
+            return $out;
+          }
+        }
+        $ran = make_random();
+        if($_FILES['file']['error']>0){
+          exit("Upload Fail");
+        }
+        move_uploaded_file($_FILES['file']['tmp_name'],'tmp/'.$ran."_".$_FILES['file']['name']);
+        $files = glob('tmp/phar/{,.}*', GLOB_BRACE);
+        foreach($files as $file){
+          if(is_file($file))
+          unlink($file);
+        }
+        $file = $ran."_".$_FILES['file'];
+        }
+        ?>
       </div>
     </center>
     </div>

@@ -38,12 +38,13 @@
         <br>
         <br>
       <div class="yee">
-        <form action="extract.php" method="post" enctype="multipart/form-data">
-            Select Zip File to upload:
-            <input type="file" name="fileToUpload" id="fileToUpload">
-            <input type="submit" class="btn btn-info" value="Upload" name="submit">
-        </form>
-      </div>
+        <form action="unphar-result.php" enctype="multipart/form-data" method="post">
+        <p>Select Your zip file:</p>
+        <br>
+        <input id="file" name="file" type="file">
+        <br>
+        <input id="submit" name="submit" type="submit" value="Upload">
+        </form>      </div>
     </center>
     </div>
 
