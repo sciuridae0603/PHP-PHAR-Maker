@@ -61,15 +61,19 @@
           unlink($file);
         }
         $zip = new ZipArchive;
+        $dir = "tmp/zip";
         if ($zip->open('tmp/'.$ran."_".$_FILES['file']['name']) === TRUE) {
           $zip->extractTo('tmp/zip/');
           $zip->close();
         } else {
           echo 'zip extract failed';
         }
-        $phar = new Phar('tmp/'.$ran."_".$_FILES['file'].".phar");
-        $phar->buildFromDirectory('tmp/zip');
+        $phar = new Phar("tmp/".$ran."_".$_FILES['file'].".phar");
         $phar->setStub(<?php __HALT_COMPILER(););
+        $phar->setSignatureAlgorithm(Phar::SHA1);
+        $phar->startBuffering();
+        $phar->buildFromDirectory($dir);
+        $phar->stopBuffering();
         ?>
         </form>
       </div>
