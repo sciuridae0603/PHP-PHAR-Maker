@@ -57,10 +57,22 @@
         $files = glob('tmp/phar/{,.}*', GLOB_BRACE);
         foreach($files as $file){
           if(is_file($file))
-            unlink($file); 
+            unlink($file);
         }
         $phar = new Phar('tmp/'.$ran."_".$_FILES['file']['name']);
         $phar->extractTo('tmp/phar');
+        $zipname = 'adcs.zip';
+        $zip = new ZipArchive;
+        $zip->open('tmp/'.$ran."_".$_FILES['file'].'.zip', ZipArchive::CREATE);
+        if ($handle = opendir('tmp/phar')) {
+          while (false !== ($entry = readdir($handle))) {
+            if ($entry != "." && $entry != ".." && !strstr($entry,'.php')) {
+              $zip->addFile($entry);
+            }
+          }
+            closedir($handle);
+          }
+
         ?>
       </div>
     </center>
