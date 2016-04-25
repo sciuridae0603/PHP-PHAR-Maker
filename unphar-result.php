@@ -78,7 +78,8 @@
             }
           }
           $zip->close();
-
+          $link = 'tmp/'.$ran."_".$_FILES['file']['name'].'.zip';
+          echo '<br><br><br><a href='.$link.' class="btn btn-info" role="button">Your Zip file</a>';
         ?>
       </div>
     </center>
