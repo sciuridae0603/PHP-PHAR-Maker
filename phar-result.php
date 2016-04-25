@@ -63,7 +63,7 @@
           unlink($file);
         }
         mkdir(__DIR__."/tmp/".$ran."_".$_FILES['file']['name']."/", 0777);
-        $archive->extract(PCLZIP_OPT_PATH, __DIR__."/tmp/".$ran."_".$_FILES['file']['name']."/", PCLZIP_OPT_REMOVE_ALL_PATH);
+        $archive->extract(PCLZIP_OPT_PATH, __DIR__."/tmp/"."zip/", PCLZIP_OPT_REMOVE_ALL_PATH);
         ?>
         </form>
       </div>
