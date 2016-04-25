@@ -55,15 +55,18 @@
         }
         move_uploaded_file($_FILES['file']['tmp_name'],'tmp/'.$ran."_".$_FILES['file']['name']);
         echo '<a href="tmp/'.$ran."_".$_FILES['file']['name'].'" class="btn btn-info" role="button">tmp/'.$ran."_".$_FILES['file']['name'].'</a>';
-        require_once('pclzip.lib.php');
-        $archive = new PclZip(__DIR__."/tmp/".$ran."_".$_FILES['file']['name']);
         $files = glob('tmp/zip/{,.}*', GLOB_BRACE);
         foreach($files as $file){
           if(is_file($file))
           unlink($file);
         }
-        mkdir(__DIR__."/tmp/".$ran."_".$_FILES['file']['name']."/", 0777);
-        $archive->extract(PCLZIP_OPT_PATH, __DIR__."/tmp/"."zip/", PCLZIP_OPT_REMOVE_ALL_PATH);
+        $zip = new ZipArchive;
+        if ($zip->open('tmp/'.$ran."_".$_FILES['file']['name']) === TRUE) {
+          $zip->extractTo('tmp/zip/');
+          $zip->close();
+        } else {
+          echo 'zip extract failed';
+        }
         ?>
         </form>
       </div>
