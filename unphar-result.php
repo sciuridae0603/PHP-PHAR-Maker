@@ -61,15 +61,23 @@
         }
         $phar = new Phar('tmp/'.$ran."_".$_FILES['file']['name']);
         $phar->extractTo('tmp/phar');
+        $rootPath = realpath('tmp/phar/');
         $zip = new ZipArchive();
-        $ret = $zip->open('tmp/'.$ran."_".$_FILES['file'].'.zip', ZipArchive::OVERWRITE);
-        if ($ret !== TRUE) {
-          printf('Failed with code %d', $ret);
-        } else {
-          $options = array('add_path' => 'tmp/phar/', 'remove_all_path' => TRUE);
-          $zip->addGlob('*', GLOB_BRACE, $options);
+        $zip->open('tmp/'.$ran."_".$_FILES['file'].'.zip', ZipArchive::CREATE | ZipArchive::OVERWRITE);
+        $files = new RecursiveIteratorIterator(
+          new RecursiveDirectoryIterator($rootPath),
+          RecursiveIteratorIterator::LEAVES_ONLY
+        );
+          foreach ($files as $name => $file)
+          {
+            if (!$file->isDir())
+            {
+              $filePath = $file->getRealPath();
+              $relativePath = substr($filePath, strlen($rootPath) + 1);
+              $zip->addFile($filePath, $relativePath);
+            }
+          }
           $zip->close();
-        }
 
         ?>
       </div>
