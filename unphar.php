@@ -39,7 +39,7 @@
         <br>
       <div class="yee">
         <form action="unphar-result.php" enctype="multipart/form-data" method="post">
-        <p>Select Your zip file:</p>
+        <p>Select Your phar file:</p>
         <br>
         <input id="file" name="file" type="file">
         <br>
